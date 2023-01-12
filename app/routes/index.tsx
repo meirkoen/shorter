@@ -31,7 +31,6 @@ export default function Index() {
         <h1 className="">
             Shorter
         </h1>
-        <input type="text" placeholder="Enter a URL to shorten" />
         <Form method="post" className="space-y-6">
           <div>
             <label
