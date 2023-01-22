@@ -4,6 +4,13 @@ import * as crypto from "crypto";
 
 export type { Url } from "@prisma/client";
 
+export function getUrlListItems() {
+  return prisma.url.findMany({
+    select: { id: true, originalUrl: true, shorterUrl: true },
+    orderBy: { updatedAt: "desc" },
+  });
+}
+
 export function getOriginalUrl({
   shorterUrl,
 }: Pick<Url, "shorterUrl">) {
@@ -12,8 +19,6 @@ export function getOriginalUrl({
     where: { shorterUrl },
   });
 }
-
-
 
 export function createUrl({
   originalUrl,
@@ -29,6 +34,24 @@ export function createUrl({
   
   return prisma.url.create(newUrl);
 }
+
+export function getUrl({
+  id,
+}: Pick<Url, "id">) {
+  return prisma.url.findFirst({
+    select: { id: true, originalUrl: true, shorterUrl: true },
+    where: { id },
+  });
+}
+
+export function deleteUrl({
+  id,
+}: Pick<Url, "id">) {
+  return prisma.url.deleteMany({
+    where: { id },
+  });
+}
+
 
 function getShorterUrl(originalUrl: string): string {
   const hash = getHash(originalUrl);
