@@ -1,5 +1,8 @@
 import * as crypto from "crypto";
 
+// 62^5
+const PATH_LENGTH = 5;
+
 export function getShorterUrl(originalUrl: string) {
   if (!originalUrl) return false;
 
@@ -23,7 +26,7 @@ function getShuffledString(str: string) {
 
 function getPath(shuffledHash: string) {
   let path = "";
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < PATH_LENGTH; i++) {
     const randomChar = shuffledHash.charAt(
       Math.floor(
         Math.random() * shuffledHash.length
