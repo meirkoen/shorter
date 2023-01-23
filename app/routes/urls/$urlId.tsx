@@ -4,6 +4,7 @@ import { Form, useCatch, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
 import { deleteUrl, getUrl } from "~/models/url.server";
+const HOST = process.env.HOST || "http://localhost:3000";
 
 export async function loader({ request, params }: LoaderArgs) {
   invariant(params.urlId, "urlId not found");
@@ -26,7 +27,7 @@ export async function action({ request, params }: ActionArgs) {
 export default function NoteDetailsPage() {
   const data = useLoaderData<typeof loader>();
 
-  const url = `http://www.shorter.com:3000/to/${data.url.shorterUrl}`;
+  const url = `${HOST}/to/${data.url.shorterUrl}`;
 
   return (
     <div>
